@@ -1,77 +1,41 @@
 import axios from 'axios';
 
-const ROOT_URL = 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=';
+const ROOT_URL = 'https://dictionary.yandex.net/api/v1/dicservice.json/';
 const API_KEY = 'dict.1.1.20180306T132849Z.14ff39f8256705e3.d1b5b2e90994d13c87274dc55cd1688bc6471575';
 
-let submitAction = function(word) {
-/*
-    const request = axios.get(ROOT_URL + API_KEY + '&lang=en-ru' + '&text=' + word)
-*/
+let submitAction = function(word, direction) {
     return dispatch => {
         dispatch({type: 'GET_DATA_REQUEST'});
-        axios.get(ROOT_URL + API_KEY + '&lang=en-ru' + '&text=' + word)
+        axios.get(ROOT_URL + 'lookup?key=' + API_KEY + '&lang='+  direction + '&text=' + word)
             .then(resp => {
                 dispatch({type: 'TRANSLATE_WORD', payload: resp})
             })
             .catch(err => {
                 dispatch({type: 'ERROR', payload: err});
-                console.log(err);
 
             })
     }
-    /*    .then((resp) => {
-            console.log(resp);
-        })
-        .catch(err => {
-            console.log(err);
-        });
-        console.log(request);
-    return {
-        type: 'TRANSLATE_WORD',
-        payload: request
-    }*/
 };
 
-let test = function (word) {
-    console.log('cancel');
-    const request = axios.get(ROOT_URL + API_KEY + '&lang=en-ru' + '&text=' + word)
-        .then((resp) => {
-            console.dir(resp);
-        })
-        .catch(err => {
-            console.log(err);
-        });
+let getLanguage = function () {
+  return dispatch => {
+      dispatch({type: 'RECEIVE_LANGUAGES'});
+      axios.get(ROOT_URL + 'getLangs?key=' + API_KEY)
+          .then(resp => {
+              dispatch({type: 'LANGUAGES', payload: resp})
+          })
+          .catch(err => {
+              dispatch({type: 'ERROR', payload: err});
+
+          })
+  }
+};
+
+let setDirectionTranslate = function (direction) {
     return {
-        type: 'TRANSLATE_WORD',
-        payload: request
+        type:'SET_DIRECTION',
+        payload: direction
     }
-
-
 };
 
-export default {test, submitAction};
-
-/*
-let submitAction = function(word) {
-    console.log('submit');
-
-    return {
-        type: 'TRANSLATE_WORD',
-        payload: word
-    }
-
-
-};
-let test = function(word) {
-    console.log('test');
-
-    return {
-        type: 'TRANSLATE_WORD',
-        payload: word
-    }
-
-
-};
-
-module.exports = {submitAction, test};
-*/
+export default {submitAction, getLanguage, setDirectionTranslate};

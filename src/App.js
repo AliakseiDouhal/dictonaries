@@ -5,13 +5,15 @@ import actions from './actions/index';
 
 import InputWord from './components/inputWord';
 import TranslatedWord from './components/translatedWord';
+import Dropdown from './components/dropdown'
 
 
 class AppView extends Component {
     render () {
         return(
             <div>
-                <InputWord onSubmit = {this.props.submitAction}/>
+                <Dropdown directionTranslate = {this.props.directionTranslate} setDirection = {this.props.setDirectionTranslate} getLanguages = {this.props.getLanguage} receiveLanguage = {this.props.receiveLanguage} />
+                <InputWord directionTranslate = {this.props.directionTranslate} onSubmit = {this.props.submitAction}/>
                 <TranslatedWord {...this.props}/>
             </div>
         )
@@ -21,8 +23,9 @@ class AppView extends Component {
 
 export default connect (
     state =>  ({
-        test:console.log(state.submitTranslate),
-        submitTranslate: state.submitTranslate[0]
+        submitTranslate: state.submitTranslate[0],
+        receiveLanguage: state.receiveLanguage,
+        directionTranslate: state.directionTranslate
     }),
     actions
 )(AppView);

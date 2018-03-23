@@ -1,0 +1,49 @@
+.input-word {
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+    font-size: 24px;
+    height: 35px;
+    border: solid 2px #e4e4e4;
+    margin: 5px;
+
+}
+.input-word::-webkit-input-placeholder {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+.input-word:focus::-webkit-input-placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.input-word::-webkit-input-placeholder {
+    color: #bec6c2;
+}
+.input-word:focus {
+    outline: none;
+}
+
+.btn-submit {
+    background-color: transparent;
+    border: solid #64a2e4 2px;
+    border-radius: 5px;
+    height: 40px;
+    transition: all 0.3s ease-in-out;
+    margin: 5px;
+    outline: none;
+}
+
+.btn-submit:disabled {
+    border: solid 2px #ececec;
+    color: #ececec;
+}
+
+.btn-submit:hover {
+    background-color: #64a2e4;
+    color: white;
+}
+
+form {
+    display: flex;
+    align-items: center;
+}

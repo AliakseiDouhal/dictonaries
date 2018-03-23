@@ -1,12 +1,11 @@
-export default function submitTranslate(state= [], action) {
-    console.log('reducer');
+export default function submitTranslate(state = [], action) {
     switch(action.type){
         case('TRANSLATE_WORD') :
-            console.log('reducer', action.payload);
             return [
-                ...state,
                 action.payload.data.def[0].tr[0].text
             ];
+        case ('ERROR'):
+            return [];
         default:
             return state
     }
